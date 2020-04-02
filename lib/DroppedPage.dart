@@ -17,49 +17,49 @@ class _DroppedPageState extends State<DroppedPage> {
   var anime = getDropped();
 
   Widget view(List<Dropped> data){
-    return SingleChildScrollView(
+    return ListView.builder(
       scrollDirection: Axis.vertical,
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: (data != null) ? data.length : 0,
-        itemBuilder: (context, index){
-          return Card(
-              child: ListTile(
-                onLongPress: (){
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context){
-                      return AlertDialog(
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () async{
-                              await insertWatching(Watching(name: data[index].name, img: data[index].img, total_episodes: data[index].total_episodes, watched_episodes: data[index].watched_episodes));
-                              await deleteDropped(data[index].name);
-                              Navigator.of(context).pop();
-                              refreshList();
-                            }, 
-                            child: Text("Add to Watching")
-                            ),
-                        ],
-                      );
-                    }
-                  );
-                },
-                leading: Image.network(data[index].img),
-                title: Text(data[index].name),
-                subtitle: Text(data[index].watched_episodes.toString() + "/" + data[index].total_episodes.toString()),
-                trailing: FlatButton(
-                  onPressed: () async{
-                    await deleteDropped(data[index].name);
-                    refreshList();
-                  }, 
-                  child: Icon(Icons.delete))),
-                color: Colors.red
-              );
-        }
-      )
+      shrinkWrap: true,
+      itemCount: (data != null) ? data.length : 0,
+      itemBuilder: (context, index){
+        return Card(
+            child: ListTile(
+              onLongPress: (){
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context){
+                    return AlertDialog(
+                      actions: <Widget>[
+                        FlatButton(
+                          onPressed: () async{
+                            await insertWatching(Watching(name: data[index].name, img: data[index].img, total_episodes: data[index].total_episodes, watched_episodes: data[index].watched_episodes));
+                            await deleteDropped(data[index].name);
+                            Navigator.of(context).pop();
+                            refreshList();
+                          }, 
+                          child: Text("Add to Watching")
+                          ),
+                        FlatButton(
+                          onPressed: () async{
+                            await deleteDropped(data[index].name);
+                            Navigator.of(context).pop();
+                            refreshList();
+                          }, 
+                          child: Text("Delete")
+                          )
+                      ],
+                    );
+                  }
+                );
+              },
+              leading: Image.network(data[index].img),
+              title: Text(data[index].name),
+              subtitle: Text(data[index].watched_episodes.toString() + "/" + data[index].total_episodes.toString()),
+              ),
+              color: Colors.red
+            );
+      }
     );
           
   }

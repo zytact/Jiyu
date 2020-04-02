@@ -42,6 +42,14 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
                             }, 
                             child: Text("Add to Watching")
                             ),
+                            FlatButton(
+                              onPressed: () async{
+                                await deletePlanned(data[index].name);
+                                Navigator.of(context).pop();
+                                refreshList();
+                              }, 
+                              child: Text("Delete")
+                              )
                         ],
                       );
                     }
@@ -50,12 +58,7 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
                 leading: Image.network(data[index].img),
                 title: Text(data[index].name),
                 subtitle: Text(data[index].total_episodes.toString()),
-                trailing: FlatButton(
-                  onPressed: () async{
-                    await deleteWatching(data[index].name);
-                    refreshList();
-                  }, 
-                  child: Icon(Icons.delete))),
+                ),
                 color: Colors.grey
               );
         }

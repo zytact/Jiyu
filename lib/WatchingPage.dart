@@ -18,80 +18,72 @@ class _WatchingPageState extends State<WatchingPage> {
   var anime = getWatching();
 
   Widget view(List<Watching> data){
-    return SingleChildScrollView(
+    return ListView.builder(
       scrollDirection: Axis.vertical,
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: (data != null) ? data.length : 0,
-        itemBuilder: (context, index){
-          return Card(
-              child: ListTile(
-                onLongPress: (){
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context){
-                      return AlertDialog(
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () async{
-                              await insertCompleted(Completed(name: data[index].name, img: data[index].img, total_episodes: data[index].total_episodes));
-                              await deleteWatching(data[index].name);
-                              Navigator.of(context).pop();
-                              refreshList();
-                            }, 
-                            child: Text("Add to Completed")
-                            ),
-                          FlatButton(
-                            onPressed: () async{
-                              await insertDropped(Dropped(name: data[index].name, img: data[index].img, total_episodes: data[index].total_episodes, watched_episodes: data[index].watched_episodes));
-                              await deleteWatching(data[index].name);
-                              Navigator.of(context).pop();
-                              refreshList();
-                            }, 
-                            child: Text("Add to Dropped")
-                            ),
-                        ],
-                      );
-                    }
-                  );
-                },
-                leading: Image.network(data[index].img),
-                title: Text(data[index].name),
-                subtitle: Row(
-                  children: <Widget>[
-                    Stack(
-                      children: <Widget>[
-                        Text(data[index].watched_episodes.toString() + "/" + data[index].total_episodes.toString()),
+      shrinkWrap: true,
+      itemCount: (data != null) ? data.length : 0,
+      itemBuilder: (context, index){
+        return Card(
+            child: ListTile(
+              onLongPress: (){
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context){
+                    return AlertDialog(
+                      actions: <Widget>[
                         FlatButton(
-                        onPressed: (){
-                          if (data[index].total_episodes != data[index].watched_episodes){
-                            updateWatching(Watching(
-                            name: data[index].name,
-                            img: data[index].img,
-                            watched_episodes: data[index].watched_episodes + 1,
-                            total_episodes: data[index].total_episodes
-                          ));
+                          onPressed: () async{
+                            await insertCompleted(Completed(name: data[index].name, img: data[index].img, total_episodes: data[index].total_episodes));
+                            await deleteWatching(data[index].name);
+                            Navigator.of(context).pop();
+                            refreshList();
+                          }, 
+                          child: Text("Add to Completed")
+                          ),
+                        FlatButton(
+                          onPressed: () async{
+                            await insertDropped(Dropped(name: data[index].name, img: data[index].img, total_episodes: data[index].total_episodes, watched_episodes: data[index].watched_episodes));
+                            await deleteWatching(data[index].name);
+                            Navigator.of(context).pop();
+                            refreshList();
+                          }, 
+                          child: Text("Add to Dropped")
+                          ),
+                        FlatButton(
+                        onPressed: () async{
+                          await deleteWatching(data[index].name);
+                          Navigator.of(context).pop();
                           refreshList();
-                          }
                         }, 
-                        child: Icon(Icons.add_circle)
+                        child: Text("Delete")
                         )
                       ],
-                    )
-                  ],
-                ),
-                trailing: FlatButton(
-                  onPressed: () async{
-                    await deleteWatching(data[index].name);
+                    );
+                  }
+                );
+              },
+              leading: Image.network(data[index].img),
+              title: Text(data[index].name),
+              subtitle: Text(data[index].watched_episodes.toString() + "/" + data[index].total_episodes.toString()),
+              isThreeLine: true,
+              trailing: FlatButton(
+                  onPressed: (){
+                    if (data[index].total_episodes != data[index].watched_episodes){
+                      updateWatching(Watching(
+                      name: data[index].name,
+                      img: data[index].img,
+                      watched_episodes: data[index].watched_episodes + 1,
+                      total_episodes: data[index].total_episodes
+                    ));
                     refreshList();
+                    }
                   }, 
-                  child: Icon(Icons.delete))),
-                color: Colors.green
-              );
-        }
-      )
+                  child: Icon(Icons.add_circle)
+                  )),
+              color: Colors.green
+            );
+      }
     );
           
   }

@@ -16,28 +16,40 @@ class _CompletedPageState extends State<CompletedPage> {
   var anime = getCompleted();
 
   Widget view(List<Completed> data){
-    return SingleChildScrollView(
+    return ListView.builder(
       scrollDirection: Axis.vertical,
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: (data != null) ? data.length : 0,
-        itemBuilder: (context, index){
-          return Card(
-              child: ListTile(
-                leading: Image.network(data[index].img),
-                title: Text(data[index].name),
-                subtitle: Text(data[index].total_episodes.toString()),
-                trailing: FlatButton(
-                  onPressed: () async{
-                    await deleteCompleted(data[index].name);
-                    refreshList();
-                  }, 
-                  child: Icon(Icons.delete))),
-                color: Colors.blue
-              );
-        }
-      )
+      shrinkWrap: true,
+      itemCount: (data != null) ? data.length : 0,
+      itemBuilder: (context, index){
+        return Card(
+            child: ListTile(
+              onLongPress: (){
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context){
+                    return AlertDialog(
+                      actions: <Widget>[
+                        FlatButton(
+                          onPressed: () async{
+                            await deleteCompleted(data[index].name);
+                            Navigator.of(context).pop();
+                            refreshList();
+                          }, 
+                          child: Text("Delete")
+                          )
+                      ],
+                    );
+                  }
+                  );
+              },
+              leading: Image.network(data[index].img),
+              title: Text(data[index].name),
+              subtitle: Text(data[index].total_episodes.toString()),
+              ),
+              color: Colors.blue
+            );
+      }
     );
           
   }
