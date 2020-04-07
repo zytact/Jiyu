@@ -14,7 +14,7 @@ This app uses the Jikan API (unofficial Myanimelist API) to fetch images.
 
 ## Android
 
-You can go and download the latest builds for android from
+You can go and download the latest builds for android from [here](https://github.com/Arnab771/Jiyu/releases/latest).
 
 ## iOS
 
