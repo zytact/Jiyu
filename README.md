@@ -1,16 +1,21 @@
-# jiyu
+# Jiyu
 
-A new Flutter project.
+A simple anime list tracker for your phone.
+This app uses the Jikan API (unofficial Myanimelist API) to fetch images.
 
-## Getting Started
+# Screenshots
 
-This project is a starting point for a Flutter application.
+<img src = "assets/watching.png" alt = "Watching Page" height = "500">
+<img src = "assets/completed.png" alt = "Completed Page" height = "500">
+<img src = "assets/dropped.png" alt = "Dropped Page" height = "500">
+<img src = "assets/plantowatch.png" alt = "Plan to Watch Page" height = "500">
 
-A few resources to get you started if this is your first Flutter project:
+# Use
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Android
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+You can go and download the latest builds for android from
+
+## iOS
+
+I don't have a Mac so I would be delighted if someone could build it for iOS. The icon for the app is in assets directory. You can upload it to appicon.co to get the proper icons for iOS.
