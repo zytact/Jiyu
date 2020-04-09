@@ -12,14 +12,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   int _currentIndex = 0;
   List tabs = [
-      WatchingPage(),
-      CompletedPage(),
-      AddPage(),
-      DroppedPage(),
-      PlantoWatchPage()
+    WatchingPage(),
+    CompletedPage(),
+    AddPage(),
+    DroppedPage(),
+    PlantoWatchPage()
   ];
   List<Color> color = [
     Colors.green,
@@ -27,7 +26,6 @@ class _HomePageState extends State<HomePage> {
     Colors.greenAccent,
     Colors.red,
     Colors.grey
-
   ];
   @override
   Widget build(BuildContext context) {
@@ -44,18 +42,16 @@ class _HomePageState extends State<HomePage> {
           Icon(Icons.check),
           Icon(Icons.add),
           Icon(Icons.delete),
-          Icon(Icons.note), 
+          Icon(Icons.note),
         ],
         animationCurve: Curves.bounceInOut,
-        animationDuration: Duration(
-          milliseconds: 200
-        ),
-        onTap: (index){
+        animationDuration: Duration(milliseconds: 200),
+        onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
-        ),
+      ),
     );
   }
-  }
+}

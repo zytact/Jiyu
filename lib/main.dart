@@ -7,13 +7,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Jiyu",
-      theme: ThemeData(
-        primarySwatch: Colors.lightGreen,
-        brightness: Brightness.dark
-      ),
-      home: HomePage()
-    );
+        title: "Jiyu",
+        theme: ThemeData(
+            primarySwatch: Colors.lightGreen, brightness: Brightness.dark),
+        home: HomePage());
   }
 }
-

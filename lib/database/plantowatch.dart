@@ -2,13 +2,13 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
 
-class Planned{
+class Planned {
   final String name;
   final String img;
   final int total_episodes;
 
   Planned({this.name, this.img, this.total_episodes});
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'name': name,
       'img': img,
@@ -19,29 +19,26 @@ class Planned{
 
 final Future<Database> database = openDatabase(
   join(getDatabasesPath().toString(), 'planned.db'),
-  onCreate: (db, version){
+  onCreate: (db, version) {
     return db.execute(
       "CREATE TABLE Planned(name TEXT PRIMARY KEY, img TEXT, total_episodes INT)",
     );
   },
   version: 1,
-  );
+);
 
-  Future<void> insertPlanned(Planned planned) async {
- 
+Future<void> insertPlanned(Planned planned) async {
   final Database db = await database;
   await db.insert(
     'Planned',
     planned.toMap(),
     conflictAlgorithm: ConflictAlgorithm.replace,
   );
-  }
+}
 
-  Future<void> updatePlanned(Planned planned) async {
-  
+Future<void> updatePlanned(Planned planned) async {
   final db = await database;
 
-  
   await db.update(
     'Planned',
     planned.toMap(),
@@ -68,9 +65,8 @@ Future<List<Planned>> getPlanned() async {
 
   return List.generate(maps.length, (i) {
     return Planned(
-      name: maps[i]['name'],
-      img: maps[i]['img'],
-      total_episodes: maps[i]['total_episodes']
-    );
+        name: maps[i]['name'],
+        img: maps[i]['img'],
+        total_episodes: maps[i]['total_episodes']);
   });
 }
