@@ -22,47 +22,58 @@ class _DroppedPageState extends State<DroppedPage> {
         shrinkWrap: true,
         itemCount: (data != null) ? data.length : 0,
         itemBuilder: (context, index) {
-          return Card(
-              child: ListTile(
-                onLongPress: () {
-                  showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          actions: <Widget>[
-                            FlatButton(
-                                onPressed: () async {
-                                  await insertWatching(Watching(
-                                      name: data[index].name,
-                                      img: data[index].img,
-                                      total_episodes:
-                                          data[index].total_episodes,
-                                      watched_episodes:
-                                          data[index].watched_episodes));
-                                  await deleteDropped(data[index].name);
-                                  Navigator.of(context).pop();
-                                  refreshList();
-                                },
-                                child: Text("Add to Watching")),
-                            FlatButton(
-                                onPressed: () async {
-                                  await deleteDropped(data[index].name);
-                                  Navigator.of(context).pop();
-                                  refreshList();
-                                },
-                                child: Text("Delete"))
-                          ],
-                        );
-                      });
-                },
-                leading: Image.network(data[index].img),
-                title: Text(data[index].name),
-                subtitle: Text(data[index].watched_episodes.toString() +
-                    "/" +
-                    data[index].total_episodes.toString()),
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.red,
+                    width: 5,
+                  ),
+                  borderRadius: BorderRadius.circular(14)),
+              child: Card(
+                child: ListTile(
+                  onLongPress: () {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            actions: <Widget>[
+                              FlatButton(
+                                  onPressed: () async {
+                                    await insertWatching(Watching(
+                                        name: data[index].name,
+                                        img: data[index].img,
+                                        total_episodes:
+                                            data[index].total_episodes,
+                                        watched_episodes:
+                                            data[index].watched_episodes));
+                                    await deleteDropped(data[index].name);
+                                    Navigator.of(context).pop();
+                                    refreshList();
+                                  },
+                                  child: Text("Add to Watching")),
+                              FlatButton(
+                                  onPressed: () async {
+                                    await deleteDropped(data[index].name);
+                                    Navigator.of(context).pop();
+                                    refreshList();
+                                  },
+                                  child: Text("Delete"))
+                            ],
+                          );
+                        });
+                  },
+                  leading: Image.network(data[index].img),
+                  title: Text(data[index].name),
+                  subtitle: Text(data[index].watched_episodes.toString() +
+                      "/" +
+                      data[index].total_episodes.toString()),
+                ),
               ),
-              color: Colors.red);
+            ),
+          );
         });
   }
 
@@ -82,7 +93,7 @@ class _DroppedPageState extends State<DroppedPage> {
       onRefresh: refreshList,
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.all(30.0),
+          padding: const EdgeInsets.all(10.0),
           child: FutureBuilder(
             future: anime,
             builder: (context, snapshot) {

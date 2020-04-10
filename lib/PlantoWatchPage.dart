@@ -17,52 +17,61 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
   var anime = getPlanned();
 
   Widget view(List<Planned> data) {
-    return SingleChildScrollView(
+    return ListView.builder(
         scrollDirection: Axis.vertical,
-        child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: (data != null) ? data.length : 0,
-            itemBuilder: (context, index) {
-              return Card(
-                  child: ListTile(
-                    onLongPress: () {
-                      showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              actions: <Widget>[
-                                FlatButton(
-                                    onPressed: () async {
-                                      await insertWatching(Watching(
-                                          name: data[index].name,
-                                          img: data[index].img,
-                                          total_episodes:
-                                              data[index].total_episodes,
-                                          watched_episodes: 0));
-                                      await deletePlanned(data[index].name);
-                                      Navigator.of(context).pop();
-                                      refreshList();
-                                    },
-                                    child: Text("Add to Watching")),
-                                FlatButton(
-                                    onPressed: () async {
-                                      await deletePlanned(data[index].name);
-                                      Navigator.of(context).pop();
-                                      refreshList();
-                                    },
-                                    child: Text("Delete"))
-                              ],
-                            );
-                          });
-                    },
-                    leading: Image.network(data[index].img),
-                    title: Text(data[index].name),
-                    subtitle: Text(data[index].total_episodes.toString()),
+        shrinkWrap: true,
+        itemCount: (data != null) ? data.length : 0,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 5,
                   ),
-                  color: Colors.grey);
-            }));
+                  borderRadius: BorderRadius.circular(14)),
+              child: Card(
+                child: ListTile(
+                  onLongPress: () {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            actions: <Widget>[
+                              FlatButton(
+                                  onPressed: () async {
+                                    await insertWatching(Watching(
+                                        name: data[index].name,
+                                        img: data[index].img,
+                                        total_episodes:
+                                            data[index].total_episodes,
+                                        watched_episodes: 0));
+                                    await deletePlanned(data[index].name);
+                                    Navigator.of(context).pop();
+                                    refreshList();
+                                  },
+                                  child: Text("Add to Watching")),
+                              FlatButton(
+                                  onPressed: () async {
+                                    await deletePlanned(data[index].name);
+                                    Navigator.of(context).pop();
+                                    refreshList();
+                                  },
+                                  child: Text("Delete"))
+                            ],
+                          );
+                        });
+                  },
+                  leading: Image.network(data[index].img),
+                  title: Text(data[index].name),
+                  subtitle: Text(data[index].total_episodes.toString()),
+                ),
+              ),
+            ),
+          );
+        });
   }
 
   var _refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -81,7 +90,7 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
       onRefresh: refreshList,
       child: Container(
         child: Padding(
-          padding: const EdgeInsets.all(30.0),
+          padding: const EdgeInsets.all(10.0),
           child: FutureBuilder(
             future: anime,
             builder: (context, snapshot) {
