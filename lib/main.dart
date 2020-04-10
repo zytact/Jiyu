@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Jiyu());
 
-class MyApp extends StatelessWidget {
+class Jiyu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "Jiyu",
         theme: ThemeData(
             primarySwatch: Colors.lightGreen, brightness: Brightness.dark),
