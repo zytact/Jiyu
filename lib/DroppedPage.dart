@@ -33,7 +33,7 @@ class _DroppedPageState extends State<DroppedPage> {
                   borderRadius: BorderRadius.circular(14)),
               child: Card(
                 child: ListTile(
-                  onLongPress: () {
+                  onTap: () {
                     showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -49,14 +49,14 @@ class _DroppedPageState extends State<DroppedPage> {
                                             data[index].total_episodes,
                                         watched_episodes:
                                             data[index].watched_episodes));
-                                    await deleteDropped(data[index].name);
+                                    await deleteDropped(data[index].id);
                                     Navigator.of(context).pop();
                                     refreshList();
                                   },
                                   child: Text("Add to Watching")),
                               FlatButton(
                                   onPressed: () async {
-                                    await deleteDropped(data[index].name);
+                                    await deleteDropped(data[index].id);
                                     Navigator.of(context).pop();
                                     refreshList();
                                   },

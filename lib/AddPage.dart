@@ -29,21 +29,22 @@ class _AddPageState extends State<AddPage> {
               title: Text("Adding"), content: LinearProgressIndicator());
         });
 
-    final String api =
+    final String _api =
         "https://api.jikan.moe/v3/search/anime?q=${animeName.text}&limit=100";
-    var data;
+    var _data;
     var response = await http
-        .get(Uri.encodeFull(api), headers: {"Accept": "application/json"});
+        .get(Uri.encodeFull(_api), headers: {"Accept": "application/json"});
     var convertToJson = json.decode(response.body);
-    data = convertToJson["results"][0];
-    print(data);
+    _data = convertToJson["results"][0];
     switch (_currentItemSelected) {
       case "Watching":
         {
           final anime = Watching(
+              id: _data['mal_id'],
+              url: _data['url'],
               name: animeName.text,
-              img: data['image_url'],
-              total_episodes: data['episodes'],
+              img: _data['image_url'],
+              total_episodes: _data['episodes'],
               watched_episodes: int.parse(watched_episodes.text));
           await insertWatching(anime);
         }
@@ -52,9 +53,11 @@ class _AddPageState extends State<AddPage> {
       case "Completed":
         {
           final anime = Completed(
+              id: _data['mal_id'],
+              url: _data['url'],
               name: animeName.text,
-              img: data['image_url'],
-              total_episodes: data['episodes']);
+              img: _data['image_url'],
+              total_episodes: _data['episodes']);
           await insertCompleted(anime);
         }
         break;
@@ -62,9 +65,11 @@ class _AddPageState extends State<AddPage> {
       case "Dropped":
         {
           final anime = Dropped(
+              id: _data['mal_id'],
+              url: _data['url'],
               name: animeName.text,
-              img: data['image_url'],
-              total_episodes: data['episodes'],
+              img: _data['image_url'],
+              total_episodes: _data['episodes'],
               watched_episodes: int.parse(watched_episodes.text));
           await insertDropped(anime);
         }
@@ -73,9 +78,11 @@ class _AddPageState extends State<AddPage> {
       case "Plan to Watch":
         {
           final anime = Planned(
+              id: _data['mal_id'],
+              url: _data['url'],
               name: animeName.text,
-              img: data['image_url'],
-              total_episodes: data['episodes']);
+              img: _data['image_url'],
+              total_episodes: _data['episodes']);
           await insertPlanned(anime);
         }
         break;

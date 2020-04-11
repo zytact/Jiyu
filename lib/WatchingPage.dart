@@ -35,7 +35,7 @@ class _WatchingPageState extends State<WatchingPage> {
                   borderRadius: BorderRadius.circular(14)),
               child: Card(
                 child: ListTile(
-                    onLongPress: () {
+                    onTap: () {
                       showDialog(
                           context: context,
                           barrierDismissible: false,
@@ -49,7 +49,7 @@ class _WatchingPageState extends State<WatchingPage> {
                                           img: data[index].img,
                                           total_episodes:
                                               data[index].total_episodes));
-                                      await deleteWatching(data[index].name);
+                                      await deleteWatching(data[index].id);
                                       Navigator.of(context).pop();
                                       refreshList();
                                     },
@@ -63,14 +63,14 @@ class _WatchingPageState extends State<WatchingPage> {
                                               data[index].total_episodes,
                                           watched_episodes:
                                               data[index].watched_episodes));
-                                      await deleteWatching(data[index].name);
+                                      await deleteWatching(data[index].id);
                                       Navigator.of(context).pop();
                                       refreshList();
                                     },
                                     child: Text("Add to Dropped")),
                                 FlatButton(
                                     onPressed: () async {
-                                      await deleteWatching(data[index].name);
+                                      await deleteWatching(data[index].id);
                                       Navigator.of(context).pop();
                                       refreshList();
                                     },
@@ -90,6 +90,7 @@ class _WatchingPageState extends State<WatchingPage> {
                           if (data[index].total_episodes !=
                               data[index].watched_episodes) {
                             updateWatching(Watching(
+                                id: data[index].id,
                                 name: data[index].name,
                                 img: data[index].img,
                                 watched_episodes:

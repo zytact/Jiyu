@@ -33,7 +33,7 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
                   borderRadius: BorderRadius.circular(14)),
               child: Card(
                 child: ListTile(
-                  onLongPress: () {
+                  onTap: () {
                     showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -48,14 +48,14 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
                                         total_episodes:
                                             data[index].total_episodes,
                                         watched_episodes: 0));
-                                    await deletePlanned(data[index].name);
+                                    await deletePlanned(data[index].id);
                                     Navigator.of(context).pop();
                                     refreshList();
                                   },
                                   child: Text("Add to Watching")),
                               FlatButton(
                                   onPressed: () async {
-                                    await deletePlanned(data[index].name);
+                                    await deletePlanned(data[index].id);
                                     Navigator.of(context).pop();
                                     refreshList();
                                   },

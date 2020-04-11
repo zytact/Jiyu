@@ -32,7 +32,7 @@ class _CompletedPageState extends State<CompletedPage> {
                   borderRadius: BorderRadius.circular(14)),
               child: Card(
                 child: ListTile(
-                  onLongPress: () {
+                  onTap: () {
                     showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -41,7 +41,7 @@ class _CompletedPageState extends State<CompletedPage> {
                             actions: <Widget>[
                               FlatButton(
                                   onPressed: () async {
-                                    await deleteCompleted(data[index].name);
+                                    await deleteCompleted(data[index].id);
                                     Navigator.of(context).pop();
                                     refreshList();
                                   },
