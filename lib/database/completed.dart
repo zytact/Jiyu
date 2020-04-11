@@ -5,11 +5,19 @@ import 'dart:async';
 class Completed {
   final String name;
   final String img;
+  final String url;
   final int total_episodes;
+  final int id;
 
-  Completed({this.name, this.img, this.total_episodes});
+  Completed({this.url, this.name, this.img, this.total_episodes, this.id});
   Map<String, dynamic> toMap() {
-    return {'name': name, 'img': img, 'total_episodes': total_episodes};
+    return {
+      'id': id,
+      'url': url,
+      'name': name,
+      'img': img,
+      'total_episodes': total_episodes
+    };
   }
 }
 
@@ -17,7 +25,7 @@ final Future<Database> database = openDatabase(
   join(getDatabasesPath().toString(), 'completed.db'),
   onCreate: (db, version) {
     return db.execute(
-      "CREATE TABLE Completed(name TEXT PRIMARY KEY, img TEXT, total_episodes INT)",
+      "CREATE TABLE Completed(id INT PRIMARY KEY, name TEXT, img TEXT, total_episodes INT, url TEXT)",
     );
   },
   version: 1,
@@ -38,18 +46,18 @@ Future<void> updateCompleted(Completed completed) async {
   await db.update(
     'Completed',
     completed.toMap(),
-    where: "name = ?",
-    whereArgs: [completed.name],
+    where: "id = ?",
+    whereArgs: [completed.id],
   );
 }
 
-Future<void> deleteCompleted(String name) async {
+Future<void> deleteCompleted(int id) async {
   final db = await database;
 
   await db.delete(
     'Completed',
-    where: "name = ?",
-    whereArgs: [name],
+    where: "id = ?",
+    whereArgs: [id],
   );
 }
 
@@ -61,7 +69,9 @@ Future<List<Completed>> getCompleted() async {
   return List.generate(maps.length, (i) {
     return Completed(
         name: maps[i]['name'],
+        url: maps[i]['url'],
         img: maps[i]['img'],
-        total_episodes: maps[i]['total_episodes']);
+        total_episodes: maps[i]['total_episodes'],
+        id: maps[i]['id']);
   }).toList();
 }
