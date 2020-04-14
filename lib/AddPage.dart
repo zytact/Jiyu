@@ -97,70 +97,65 @@ class _AddPageState extends State<AddPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Form(
-              child: Column(
-            key: this._formKey,
-            children: <Widget>[
-              DropdownButton(
-                items: this._status.map((String dropDownStringItem) {
-                  return DropdownMenuItem(
-                      child: Text(dropDownStringItem),
-                      value: dropDownStringItem);
-                }).toList(),
-                onChanged: (String value) {
-                  this.setState(() {
-                    this._currentItemSelected = value;
-                    if (this._currentItemSelected == "Plan to Watch" ||
-                        this._currentItemSelected == "Completed") {
-                      _watchedEpisodeInput = false;
-                    } else {
-                      _watchedEpisodeInput = true;
-                    }
-                  });
-                },
-                value: this._currentItemSelected,
-              ),
-              TextFormField(
-                autovalidate: true,
-                autofocus: true,
-                controller: animeName,
-                decoration: InputDecoration(hintText: "Anime name"),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "You have to enter anime name";
-                  }
-                },
-              ),
-              TextFormField(
-                autovalidate: true,
-                enabled: _watchedEpisodeInput,
-                controller: watched_episodes,
-                decoration: InputDecoration(hintText: "Watched Episodes"),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please enter how many episodes you've watched";
-                  }
-                  try {
-                    int.parse(watched_episodes.text);
-                  } catch (e) {
-                    watched_episodes.clear();
-                    return "Watched episode should be a number (whole number";
-                  }
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: FloatingActionButton.extended(
-                    onPressed: add, label: Text("Add")),
-              )
-            ],
-          )),
-        ),
-      ),
+    return SingleChildScrollView(
+      child: Form(
+          child: Column(
+        key: this._formKey,
+        children: <Widget>[
+          DropdownButton(
+            items: this._status.map((String dropDownStringItem) {
+              return DropdownMenuItem(
+                  child: Text(dropDownStringItem), value: dropDownStringItem);
+            }).toList(),
+            onChanged: (String value) {
+              this.setState(() {
+                this._currentItemSelected = value;
+                if (this._currentItemSelected == "Plan to Watch" ||
+                    this._currentItemSelected == "Completed") {
+                  _watchedEpisodeInput = false;
+                } else {
+                  _watchedEpisodeInput = true;
+                }
+              });
+            },
+            value: this._currentItemSelected,
+          ),
+          TextFormField(
+            autovalidate: true,
+            autofocus: true,
+            controller: animeName,
+            decoration: InputDecoration(hintText: "Anime name"),
+            validator: (value) {
+              if (value.isEmpty) {
+                return "You have to enter anime name";
+              }
+            },
+          ),
+          TextFormField(
+            autovalidate: true,
+            keyboardType: TextInputType.number,
+            enabled: _watchedEpisodeInput,
+            controller: watched_episodes,
+            decoration: InputDecoration(hintText: "Watched Episodes"),
+            validator: (value) {
+              if (value.isEmpty) {
+                return "Please enter how many episodes you've watched";
+              }
+              try {
+                int.parse(watched_episodes.text);
+              } catch (e) {
+                watched_episodes.clear();
+                return "Watched episode should be a number (whole number";
+              }
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: FloatingActionButton.extended(
+                onPressed: add, label: Text("Add")),
+          )
+        ],
+      )),
     );
   }
 }
