@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'WatchingPage.dart';
 
 void main() => runApp(Jiyu());
 
@@ -11,6 +11,6 @@ class Jiyu extends StatelessWidget {
         title: "Jiyu",
         theme: ThemeData(
             primarySwatch: Colors.lightGreen, brightness: Brightness.dark),
-        home: HomePage());
+        home: WatchingPage());
   }
 }
