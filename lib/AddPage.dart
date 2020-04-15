@@ -22,7 +22,7 @@ class _AddPageState extends State<AddPage> {
   final backgroundColor = Color(0xFF33325F);
 
   Future<String> add() async {
-    if (animeName.text == "" || watched_episodes.text == "") {
+    if (animeName.text == "") {
       showDialog(
           context: context,
           barrierDismissible: true,
@@ -63,14 +63,25 @@ class _AddPageState extends State<AddPage> {
       switch (_currentItemSelected) {
         case "Watching":
           {
-            final anime = Watching(
-                id: _data['mal_id'],
-                url: _data['url'],
-                name: animeName.text,
-                img: _data['image_url'],
-                total_episodes: _data['episodes'],
-                watched_episodes: int.parse(watched_episodes.text));
-            await insertWatching(anime);
+            if (watched_episodes.text == "") {
+              final anime = Watching(
+                  id: _data['mal_id'],
+                  url: _data['url'],
+                  name: animeName.text,
+                  img: _data['image_url'],
+                  total_episodes: _data['episodes'],
+                  watched_episodes: 0);
+              await insertWatching(anime);
+            } else {
+              final anime = Watching(
+                  id: _data['mal_id'],
+                  url: _data['url'],
+                  name: animeName.text,
+                  img: _data['image_url'],
+                  total_episodes: _data['episodes'],
+                  watched_episodes: int.parse(watched_episodes.text));
+              await insertWatching(anime);
+            }
           }
           break;
 
@@ -88,14 +99,25 @@ class _AddPageState extends State<AddPage> {
 
         case "Dropped":
           {
-            final anime = Dropped(
-                id: _data['mal_id'],
-                url: _data['url'],
-                name: animeName.text,
-                img: _data['image_url'],
-                total_episodes: _data['episodes'],
-                watched_episodes: int.parse(watched_episodes.text));
-            await insertDropped(anime);
+            if (watched_episodes.text == "") {
+              final anime = Dropped(
+                  id: _data['mal_id'],
+                  url: _data['url'],
+                  name: animeName.text,
+                  img: _data['image_url'],
+                  total_episodes: _data['episodes'],
+                  watched_episodes: 0);
+              await insertDropped(anime);
+            } else {
+              final anime = Dropped(
+                  id: _data['mal_id'],
+                  url: _data['url'],
+                  name: animeName.text,
+                  img: _data['image_url'],
+                  total_episodes: _data['episodes'],
+                  watched_episodes: int.parse(watched_episodes.text));
+              await insertDropped(anime);
+            }
           }
           break;
 
@@ -117,6 +139,7 @@ class _AddPageState extends State<AddPage> {
       });
       Navigator.of(context).pop();
     }
+
     return "Success";
   }
 
