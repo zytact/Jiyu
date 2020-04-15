@@ -22,80 +22,101 @@ class _AddPageState extends State<AddPage> {
   final backgroundColor = Color(0xFF33325F);
 
   Future<String> add() async {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: backgroundColor,
-            title: Text("Adding"),
-            content: LinearProgressIndicator(),
-          );
-        });
+    if (animeName.text == "" || watched_episodes.text == "") {
+      showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: backgroundColor,
+              title: Text("Error"),
+              content: Text("Please fill in the required fields"),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("OK"),
+                )
+              ],
+            );
+          });
+    } else {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: backgroundColor,
+              title: Text("Adding"),
+              content: LinearProgressIndicator(),
+            );
+          });
 
-    final String _api =
-        "https://api.jikan.moe/v3/search/anime?q=${animeName.text}&limit=100";
-    var _data;
-    var response = await http
-        .get(Uri.encodeFull(_api), headers: {"Accept": "application/json"});
-    var convertToJson = json.decode(response.body);
-    _data = convertToJson["results"][0];
-    switch (_currentItemSelected) {
-      case "Watching":
-        {
-          final anime = Watching(
-              id: _data['mal_id'],
-              url: _data['url'],
-              name: animeName.text,
-              img: _data['image_url'],
-              total_episodes: _data['episodes'],
-              watched_episodes: int.parse(watched_episodes.text));
-          await insertWatching(anime);
-        }
-        break;
+      final String _api =
+          "https://api.jikan.moe/v3/search/anime?q=${animeName.text}&limit=100";
+      var _data;
+      var response = await http
+          .get(Uri.encodeFull(_api), headers: {"Accept": "application/json"});
+      var convertToJson = json.decode(response.body);
+      _data = convertToJson["results"][0];
+      switch (_currentItemSelected) {
+        case "Watching":
+          {
+            final anime = Watching(
+                id: _data['mal_id'],
+                url: _data['url'],
+                name: animeName.text,
+                img: _data['image_url'],
+                total_episodes: _data['episodes'],
+                watched_episodes: int.parse(watched_episodes.text));
+            await insertWatching(anime);
+          }
+          break;
 
-      case "Completed":
-        {
-          final anime = Completed(
-              id: _data['mal_id'],
-              url: _data['url'],
-              name: animeName.text,
-              img: _data['image_url'],
-              total_episodes: _data['episodes']);
-          await insertCompleted(anime);
-        }
-        break;
+        case "Completed":
+          {
+            final anime = Completed(
+                id: _data['mal_id'],
+                url: _data['url'],
+                name: animeName.text,
+                img: _data['image_url'],
+                total_episodes: _data['episodes']);
+            await insertCompleted(anime);
+          }
+          break;
 
-      case "Dropped":
-        {
-          final anime = Dropped(
-              id: _data['mal_id'],
-              url: _data['url'],
-              name: animeName.text,
-              img: _data['image_url'],
-              total_episodes: _data['episodes'],
-              watched_episodes: int.parse(watched_episodes.text));
-          await insertDropped(anime);
-        }
-        break;
+        case "Dropped":
+          {
+            final anime = Dropped(
+                id: _data['mal_id'],
+                url: _data['url'],
+                name: animeName.text,
+                img: _data['image_url'],
+                total_episodes: _data['episodes'],
+                watched_episodes: int.parse(watched_episodes.text));
+            await insertDropped(anime);
+          }
+          break;
 
-      case "Plan to Watch":
-        {
-          final anime = Planned(
-              id: _data['mal_id'],
-              url: _data['url'],
-              name: animeName.text,
-              img: _data['image_url'],
-              total_episodes: _data['episodes']);
-          await insertPlanned(anime);
-        }
-        break;
+        case "Plan to Watch":
+          {
+            final anime = Planned(
+                id: _data['mal_id'],
+                url: _data['url'],
+                name: animeName.text,
+                img: _data['image_url'],
+                total_episodes: _data['episodes']);
+            await insertPlanned(anime);
+          }
+          break;
+      }
+      setState(() {
+        animeName.text = "";
+        watched_episodes.text = "";
+      });
+      Navigator.of(context).pop();
     }
-    setState(() {
-      animeName.text = "";
-      watched_episodes.text = "";
-    });
-    Navigator.of(context).pop();
     return "Success";
   }
 
