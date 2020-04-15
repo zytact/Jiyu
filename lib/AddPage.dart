@@ -19,6 +19,7 @@ class _AddPageState extends State<AddPage> {
   final watched_episodes = TextEditingController();
   bool _watchedEpisodeInput = true;
   final _formKey = GlobalKey<FormState>();
+  final backgroundColor = Color(0xFF33325F);
 
   Future<String> add() async {
     showDialog(
@@ -26,7 +27,10 @@ class _AddPageState extends State<AddPage> {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text("Adding"), content: LinearProgressIndicator());
+            backgroundColor: backgroundColor,
+            title: Text("Adding"),
+            content: LinearProgressIndicator(),
+          );
         });
 
     final String _api =
@@ -152,7 +156,16 @@ class _AddPageState extends State<AddPage> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: FloatingActionButton.extended(
-                onPressed: add, label: Text("Add")),
+              elevation: 8.0,
+              onPressed: add,
+              backgroundColor: Colors.purple,
+              label: Text(
+                "Add",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
           )
         ],
       )),
