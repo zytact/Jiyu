@@ -14,6 +14,8 @@ class Jiyu extends StatelessWidget {
           primarySwatch: Colors.purple,
           brightness: Brightness.dark,
           canvasColor: backgroundColor,
+          textSelectionColor: Colors.purpleAccent,
+          cursorColor: Colors.purpleAccent,
         ),
         home: WatchingPage());
   }
