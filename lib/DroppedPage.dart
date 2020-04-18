@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'AppDrawer.dart';
 import 'AddPage.dart';
-import 'CompletedPage.dart';
-import 'PlantoWatchPage.dart';
-import 'WatchingPage.dart';
 import 'database/watching.dart';
 import 'database/dropped.dart';
 
@@ -116,90 +114,7 @@ class _DroppedPageState extends State<DroppedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      drawer: Drawer(
-        child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            colors: [Colors.purple[700], Colors.purple[900]],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-          )),
-          child: ListView(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        "assets/icon.png",
-                        width: 150.0,
-                      ),
-                    ),
-                    Text(
-                      "Jiyu",
-                      style: TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      "Made by Arnab",
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontStyle: FontStyle.italic,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SelectableText(
-                      "(https://github.com/Arnab771)",
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontStyle: FontStyle.italic,
-                      ),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.arrow_upward),
-                title: Text("Watching"),
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => WatchingPage())),
-              ),
-              Divider(),
-              ListTile(
-                leading: Icon(Icons.check),
-                title: Text("Completed"),
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => CompletedPage())),
-              ),
-              Divider(),
-              ListTile(
-                leading: Icon(Icons.delete),
-                title: Text("Dropped"),
-                enabled: true,
-              ),
-              Divider(),
-              ListTile(
-                leading: Icon(Icons.note),
-                title: Text("Plan to Watch"),
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => PlantoWatchPage())),
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: AppDrawer(true, true, false, true),
       appBar: AppBar(
         backgroundColor: backgroundColor,
         title: Text("Dropped"),
