@@ -14,21 +14,37 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: this.backgroundColor,
       body: SafeArea(
           child: Center(
-        child: MaterialButton(
-          onPressed: () async {
-            bool res = await AuthProvider().signInWithGoogle();
-            if (res == false) {
-              print("Failed");
-            }
-          },
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-          elevation: 8.0,
-          color: Colors.purple,
-          child: InkWell(
-            splashColor: Colors.greenAccent,
-            child: Text("SIGN IN WITH GOOGLE"),
-          ),
+        child: Column(
+          children: <Widget>[
+            Image.asset(
+              "assets/icon.png",
+              width: 150,
+            ),
+            Text(
+              "Jiyu",
+              style: TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            MaterialButton(
+              onPressed: () async {
+                bool res = await AuthProvider().signInWithGoogle();
+                if (res == false) {
+                  print("Failed");
+                }
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              elevation: 8.0,
+              color: Colors.purple,
+              child: InkWell(
+                splashColor: Colors.greenAccent,
+                child: Text("SIGN IN WITH GOOGLE"),
+              ),
+            ),
+          ],
         ),
       )),
     );
