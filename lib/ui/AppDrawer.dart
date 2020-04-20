@@ -20,7 +20,7 @@ class AppDrawer extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          colors: [Color(0xFF242343), Color(0xFF504f96)],
+          colors: [Colors.purple[700], Colors.purple[900]],
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
         )),
