@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'database/completed.dart';
-import 'database/dropped.dart';
-import 'database/plantowatch.dart';
-import 'database/watching.dart';
+import 'package:jiyu/backup/upload.dart';
+import 'package:jiyu/sqlite-database/completed.dart';
+import 'package:jiyu/sqlite-database/dropped.dart';
+import 'package:jiyu/sqlite-database/plantowatch.dart';
+import 'package:jiyu/sqlite-database/watching.dart';
 import 'package:http/http.dart' as http;
 
 class AddPage extends StatefulWidget {
@@ -139,6 +140,7 @@ class _AddPageState extends State<AddPage> {
       });
       Navigator.of(context).pop();
     }
+    upload();
 
     return "Success";
   }

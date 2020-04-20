@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'AppDrawer.dart';
-import 'AddPage.dart';
-import 'database/watching.dart';
-import 'database/dropped.dart';
+import 'package:jiyu/backup/upload.dart';
+import 'package:jiyu/ui/AppDrawer.dart';
+import 'package:jiyu/ui/AddPage.dart';
+import 'package:jiyu/sqlite-database/watching.dart';
+import 'package:jiyu/sqlite-database/dropped.dart';
 
 class DroppedPage extends StatefulWidget {
   @override
@@ -72,6 +73,7 @@ class _DroppedPageState extends State<DroppedPage> {
                                             await deleteDropped(data[index].id);
                                             Navigator.of(context).pop();
                                             refreshList();
+                                            upload();
                                           },
                                           child: Text("Add to Watching")),
                                       FlatButton(
@@ -79,6 +81,7 @@ class _DroppedPageState extends State<DroppedPage> {
                                             await deleteDropped(data[index].id);
                                             Navigator.of(context).pop();
                                             refreshList();
+                                            upload();
                                           },
                                           child: Text("Delete"))
                                     ],

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'CompletedPage.dart';
-import 'DroppedPage.dart';
-import 'PlantoWatchPage.dart';
-import 'WatchingPage.dart';
+import 'package:jiyu/auth/login.dart';
+import 'package:jiyu/backup/download.dart';
+import 'package:jiyu/ui/CompletedPage.dart';
+import 'package:jiyu/ui/DroppedPage.dart';
+import 'package:jiyu/ui/PlantoWatchPage.dart';
+import 'package:jiyu/ui/WatchingPage.dart';
 
 class AppDrawer extends StatelessWidget {
   final bool _routeToWatching;
@@ -19,7 +20,7 @@ class AppDrawer extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          colors: [Colors.purple[700], Colors.purple[900]],
+          colors: [Color(0xFF242343), Color(0xFF504f96)],
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
         )),
@@ -124,6 +125,42 @@ class AppDrawer extends StatelessWidget {
                                   PlantoWatchPage()));
                     }
                   }),
+            ),
+            MaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              elevation: 8.0,
+              padding: EdgeInsets.all(0.0),
+              color: Colors.purple,
+              onPressed: () {
+                download();
+              },
+              child: InkWell(
+                child: Container(
+                  child: Text("Load from Backup"),
+                  constraints: BoxConstraints(maxHeight: 50.0, maxWidth: 140.0),
+                ),
+                splashColor: Colors.greenAccent,
+              ),
+            ),
+            MaterialButton(
+              onPressed: () async {
+                AuthProvider().signOut();
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              elevation: 8.0,
+              color: Colors.purple,
+              padding: EdgeInsets.all(0.0),
+              child: InkWell(
+                child: Container(
+                  child: Text("Sign Out"),
+                  constraints: BoxConstraints(maxHeight: 50.0, maxWidth: 100.0),
+                ),
+                splashColor: Colors.greenAccent,
+              ),
             ),
           ],
         ),

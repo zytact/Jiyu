@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'AppDrawer.dart';
-import 'AddPage.dart';
-import 'database/plantowatch.dart';
-import 'database/watching.dart';
+import 'package:jiyu/backup/upload.dart';
+import 'package:jiyu/ui/AppDrawer.dart';
+import 'package:jiyu/ui/AddPage.dart';
+import 'package:jiyu/sqlite-database/completed.dart';
 
-class PlantoWatchPage extends StatefulWidget {
+class CompletedPage extends StatefulWidget {
   @override
-  _PlantoWatchPageState createState() => _PlantoWatchPageState();
+  _CompletedPageState createState() => _CompletedPageState();
 }
 
-class _PlantoWatchPageState extends State<PlantoWatchPage> {
+class _CompletedPageState extends State<CompletedPage> {
   @override
   void initState() {
     super.initState();
@@ -18,9 +18,9 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
   }
 
   final backgroundColor = Color(0xFF33325F);
-  var anime = getPlanned();
+  var anime = getCompleted();
 
-  Widget gridView(List<Planned> data) {
+  Widget gridView(List<Completed> data) {
     return StaggeredGridView.countBuilder(
       crossAxisCount: 2,
       itemCount: (data != null) ? data.length : 0,
@@ -57,24 +57,11 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
                                     actions: <Widget>[
                                       FlatButton(
                                           onPressed: () async {
-                                            await insertWatching(Watching(
-                                                id: data[index].id,
-                                                url: data[index].url,
-                                                name: data[index].name,
-                                                img: data[index].img,
-                                                total_episodes:
-                                                    data[index].total_episodes,
-                                                watched_episodes: 0));
-                                            await deletePlanned(data[index].id);
+                                            await deleteCompleted(
+                                                data[index].id);
                                             Navigator.of(context).pop();
                                             refreshList();
-                                          },
-                                          child: Text("Add to Watching")),
-                                      FlatButton(
-                                          onPressed: () async {
-                                            await deletePlanned(data[index].id);
-                                            Navigator.of(context).pop();
-                                            refreshList();
+                                            upload();
                                           },
                                           child: Text("Delete"))
                                     ],
@@ -102,7 +89,7 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
     _refreshKey.currentState?.show();
     await Future.delayed(Duration(milliseconds: 1500));
     setState(() {
-      anime = getPlanned();
+      anime = getCompleted();
     });
   }
 
@@ -110,10 +97,10 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      drawer: AppDrawer(true, true, true, false),
+      drawer: AppDrawer(true, false, true, true),
       appBar: AppBar(
         backgroundColor: backgroundColor,
-        title: Text("Plan to Watch"),
+        title: Text("Completed"),
       ),
       body: RefreshIndicator(
         key: _refreshKey,
@@ -128,7 +115,7 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
                   return gridView(snapshot.data);
                 }
                 if (snapshot.data == null || snapshot.data.length) {
-                  return Text("Nothing here",
+                  return Text("You have not completed anything",
                       style: TextStyle(fontSize: 20.0, color: Colors.grey));
                 }
               },

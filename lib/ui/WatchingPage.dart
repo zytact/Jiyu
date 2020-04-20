@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'AppDrawer.dart';
-import 'AddPage.dart';
+import 'package:jiyu/backup/download.dart';
+import 'package:jiyu/backup/upload.dart';
+import 'package:jiyu/ui/AppDrawer.dart';
+import 'package:jiyu/ui/AddPage.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'database/watching.dart';
-import 'database/completed.dart';
-import 'database/dropped.dart';
+import 'package:jiyu/sqlite-database/watching.dart';
+import 'package:jiyu/sqlite-database/completed.dart';
+import 'package:jiyu/sqlite-database/dropped.dart';
 
 class WatchingPage extends StatefulWidget {
   @override
@@ -64,6 +66,7 @@ class _WatchingPageState extends State<WatchingPage> {
                                           total_episodes:
                                               data[index].total_episodes));
                                       refreshList();
+                                      upload();
                                     }
                                   },
                                 ),
@@ -95,6 +98,7 @@ class _WatchingPageState extends State<WatchingPage> {
                                                   data[index].id);
                                               Navigator.of(context).pop();
                                               refreshList();
+                                              upload();
                                             },
                                             child: Text("Add to Completed")),
                                         FlatButton(
@@ -112,6 +116,7 @@ class _WatchingPageState extends State<WatchingPage> {
                                                   data[index].id);
                                               Navigator.of(context).pop();
                                               refreshList();
+                                              upload();
                                             },
                                             child: Text("Add to Dropped")),
                                         FlatButton(
@@ -120,6 +125,7 @@ class _WatchingPageState extends State<WatchingPage> {
                                                   data[index].id);
                                               Navigator.of(context).pop();
                                               refreshList();
+                                              upload();
                                             },
                                             child: Text("Delete"))
                                       ],
