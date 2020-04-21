@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:jiyu/backup/download.dart';
 import 'package:jiyu/backup/upload.dart';
 import 'package:jiyu/ui/AppDrawer.dart';
 import 'package:jiyu/ui/AddPage.dart';

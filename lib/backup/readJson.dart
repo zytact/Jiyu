@@ -4,13 +4,9 @@ import 'package:jiyu/sqlite-database/plantowatch.dart';
 import 'package:jiyu/sqlite-database/dropped.dart';
 import 'package:jiyu/sqlite-database/watching.dart';
 import 'dart:io';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 
 void readJson() async {
-  // Map<Permission, PermissionStatus> permissions =
-  //     await [Permission.storage].request();
-  // if (await Permission.storage.isGranted) {
   String databasePath = await getDatabasesPath();
   final File file = File("$databasePath/details.json");
   var details = jsonDecode(file.readAsStringSync());
@@ -64,5 +60,4 @@ void readJson() async {
         total_episodes: decodedPlanned['total_episodes']);
     insertPlanned(plannedToInsert);
   }
-  // }
 }

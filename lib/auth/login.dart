@@ -21,10 +21,6 @@ class AuthProvider {
       if (res.user == null) {
         return false;
       }
-      // final FirebaseUser user = await _auth.currentUser();
-      // final uid = user.uid;
-      // final CollectionReference collectionReference =
-      //     Firestore.instance.collection(uid);
       return true;
     } catch (e) {
       print("Error logging in with google");

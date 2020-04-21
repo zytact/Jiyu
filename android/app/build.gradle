@@ -48,7 +48,7 @@ android {
         applicationId "com.arnab.jiyu"
         minSdkVersion 16
         multiDexEnabled true
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

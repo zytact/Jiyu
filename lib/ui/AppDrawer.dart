@@ -17,153 +17,143 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          colors: [Colors.purple[700], Colors.purple[900]],
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-        )),
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                children: <Widget>[
-                  Image.asset(
-                    "assets/icon.png",
-                    width: 150.0,
+      child: ListView(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              children: <Widget>[
+                Image.asset(
+                  "assets/icon.png",
+                  width: 150.0,
+                ),
+                Text(
+                  "Jiyu",
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    "Jiyu",
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "Made by Arnab",
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    fontStyle: FontStyle.italic,
                   ),
-                  Text(
-                    "Made by Arnab",
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontStyle: FontStyle.italic,
-                    ),
-                    textAlign: TextAlign.center,
+                  textAlign: TextAlign.center,
+                ),
+                SelectableText(
+                  "(https://github.com/Arnab771)",
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    fontStyle: FontStyle.italic,
                   ),
-                  SelectableText(
-                    "(https://github.com/Arnab771)",
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontStyle: FontStyle.italic,
-                    ),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                )
+              ],
             ),
-            Container(
-              color: this._routeToWatching == false ? Colors.purple[900] : null,
-              child: ListTile(
-                leading: Icon(Icons.arrow_upward),
-                title: Text("Watching"),
+          ),
+          Container(
+            color: this._routeToWatching == false ? Colors.purple[900] : null,
+            child: ListTile(
+              leading: Icon(Icons.arrow_upward),
+              title: Text("Watching"),
+              onTap: () {
+                if (this._routeToWatching) {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => WatchingPage()));
+                }
+              },
+            ),
+          ),
+          Container(
+            color: this._routeToCompleted == false ? Colors.purple[900] : null,
+            child: ListTile(
+                leading: Icon(Icons.check),
+                title: Text("Completed"),
                 onTap: () {
-                  if (this._routeToWatching) {
+                  if (this._routeToCompleted) {
                     Navigator.pop(context);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => WatchingPage()));
+                            builder: (BuildContext context) =>
+                                CompletedPage()));
                   }
-                },
+                }),
+          ),
+          Container(
+            color: this._routeToDropped == false ? Colors.purple[900] : null,
+            child: ListTile(
+                leading: Icon(Icons.delete),
+                title: Text("Dropped"),
+                onTap: () {
+                  if (this._routeToDropped) {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => DroppedPage()));
+                  }
+                }),
+          ),
+          Container(
+            color: this._routeToPlanned == false ? Colors.purple[900] : null,
+            child: ListTile(
+                leading: Icon(Icons.note),
+                title: Text("Plan to Watch"),
+                onTap: () {
+                  if (this._routeToPlanned) {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                PlantoWatchPage()));
+                  }
+                }),
+          ),
+          MaterialButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            elevation: 8.0,
+            padding: EdgeInsets.all(0.0),
+            color: Colors.purple,
+            onPressed: () {
+              download();
+            },
+            child: InkWell(
+              child: Container(
+                child: Text("Load from Backup"),
+                constraints: BoxConstraints(maxHeight: 50.0, maxWidth: 140.0),
               ),
+              splashColor: Colors.greenAccent,
             ),
-            Container(
-              color:
-                  this._routeToCompleted == false ? Colors.purple[900] : null,
-              child: ListTile(
-                  leading: Icon(Icons.check),
-                  title: Text("Completed"),
-                  onTap: () {
-                    if (this._routeToCompleted) {
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  CompletedPage()));
-                    }
-                  }),
+          ),
+          MaterialButton(
+            onPressed: () async {
+              AuthProvider().signOut();
+            },
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
             ),
-            Container(
-              color: this._routeToDropped == false ? Colors.purple[900] : null,
-              child: ListTile(
-                  leading: Icon(Icons.delete),
-                  title: Text("Dropped"),
-                  onTap: () {
-                    if (this._routeToDropped) {
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  DroppedPage()));
-                    }
-                  }),
-            ),
-            Container(
-              color: this._routeToPlanned == false ? Colors.purple[900] : null,
-              child: ListTile(
-                  leading: Icon(Icons.note),
-                  title: Text("Plan to Watch"),
-                  onTap: () {
-                    if (this._routeToPlanned) {
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  PlantoWatchPage()));
-                    }
-                  }),
-            ),
-            MaterialButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
+            elevation: 8.0,
+            color: Colors.purple,
+            padding: EdgeInsets.all(0.0),
+            child: InkWell(
+              child: Container(
+                child: Text("Sign Out"),
+                constraints: BoxConstraints(maxHeight: 50.0, maxWidth: 100.0),
               ),
-              elevation: 8.0,
-              padding: EdgeInsets.all(0.0),
-              color: Colors.purple,
-              onPressed: () {
-                download();
-              },
-              child: InkWell(
-                child: Container(
-                  child: Text("Load from Backup"),
-                  constraints: BoxConstraints(maxHeight: 50.0, maxWidth: 140.0),
-                ),
-                splashColor: Colors.greenAccent,
-              ),
+              splashColor: Colors.greenAccent,
             ),
-            MaterialButton(
-              onPressed: () async {
-                AuthProvider().signOut();
-              },
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              elevation: 8.0,
-              color: Colors.purple,
-              padding: EdgeInsets.all(0.0),
-              child: InkWell(
-                child: Container(
-                  child: Text("Sign Out"),
-                  constraints: BoxConstraints(maxHeight: 50.0, maxWidth: 100.0),
-                ),
-                splashColor: Colors.greenAccent,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -3,14 +3,9 @@ import 'package:jiyu/backup/readJson.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:jiyu/auth/login.dart';
 import 'package:http/http.dart' as http;
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 
 void download() async {
-  // Map<Permission, PermissionStatus> permissions =
-  //     await [Permission.storage].request();
-  // print(await Permission.storage.isGranted);
-  // if (await Permission.storage.isGranted) {
   AuthProvider().currentUserId().then((String uid) async {
     final StorageReference firebaseStorageRef =
         FirebaseStorage.instance.ref().child(uid + "/" + "details.json");
@@ -37,5 +32,4 @@ void download() async {
       print(e);
     }
   });
-  // }
 }

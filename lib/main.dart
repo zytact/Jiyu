@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:jiyu/ui/LoginPage.dart';
 import 'package:jiyu/ui/SplashScreen.dart';
 import 'package:jiyu/ui/WatchingPage.dart';
-import 'package:jiyu/auth/login.dart';
 
 void main() => runApp(Jiyu());
 
@@ -16,6 +15,7 @@ class Jiyu extends StatelessWidget {
       title: "Jiyu",
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        backgroundColor: backgroundColor,
         brightness: Brightness.dark,
         canvasColor: backgroundColor,
         textSelectionColor: Colors.purpleAccent,

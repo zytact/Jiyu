@@ -4,13 +4,9 @@ import 'package:jiyu/sqlite-database/plantowatch.dart';
 import 'package:jiyu/sqlite-database/dropped.dart';
 import 'package:jiyu/sqlite-database/watching.dart';
 import 'dart:io';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 
 void createJson() async {
-  // Map<Permission, PermissionStatus> permissions =
-  // await [Permission.storage].request();
-  // if (await Permission.storage.isGranted) {
   Map<String, dynamic> details = new Map<String, dynamic>();
 
   List<Watching> watching = await getWatching();
@@ -49,5 +45,4 @@ void createJson() async {
   }
   file.create();
   file.writeAsStringSync(detailsToWrite);
-  // }
 }
