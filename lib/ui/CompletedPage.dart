@@ -33,45 +33,52 @@ class _CompletedPageState extends State<CompletedPage> {
                 child: Material(
                     child: InkWell(
                   child: GridTile(
-                    footer: Container(
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                          colors: [Colors.purple, Colors.blue[500]],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        )),
-                        child: ListTile(
-                          title: Text(
-                            data[index].name,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(data[index].total_episodes.toString()),
-                          isThreeLine: false,
-                          onLongPress: () {
-                            showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    backgroundColor: backgroundColor,
-                                    actions: <Widget>[
-                                      FlatButton(
-                                          onPressed: () async {
-                                            await deleteCompleted(
-                                                data[index].id);
-                                            Navigator.of(context).pop();
-                                            refreshList();
-                                            upload();
-                                          },
-                                          child: Text("Delete"))
-                                    ],
-                                  );
-                                });
-                          },
-                        )),
-                    child: Image.network(
-                      data[index].img,
-                      fit: BoxFit.cover,
+                    footer: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                            colors: [Colors.purple, Colors.blue[500]],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          )),
+                          child: ListTile(
+                            title: Text(
+                              data[index].name,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            subtitle:
+                                Text(data[index].total_episodes.toString()),
+                            isThreeLine: false,
+                            onLongPress: () {
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: backgroundColor,
+                                      actions: <Widget>[
+                                        FlatButton(
+                                            onPressed: () async {
+                                              await deleteCompleted(
+                                                  data[index].id);
+                                              Navigator.of(context).pop();
+                                              refreshList();
+                                              upload();
+                                            },
+                                            child: Text("Delete"))
+                                      ],
+                                    );
+                                  });
+                            },
+                          )),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.network(
+                        data[index].img,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 )),

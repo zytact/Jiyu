@@ -36,104 +36,112 @@ class _WatchingPageState extends State<WatchingPage> {
                 child: Material(
                     child: InkWell(
                   child: GridTile(
-                    footer: Container(
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                          colors: [Colors.purple, Colors.blue[500]],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        )),
-                        child: ListTile(
-                            title: Text(
-                              data[index].name,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            trailing: ClipOval(
-                              child: Material(
-                                child: InkWell(
-                                  child: Icon(Icons.add_circle),
-                                  splashColor: Colors.greenAccent,
-                                  onTap: () {
-                                    if (data[index].total_episodes !=
-                                        data[index].watched_episodes) {
-                                      updateWatching(Watching(
-                                          id: data[index].id,
-                                          name: data[index].name,
-                                          img: data[index].img,
-                                          watched_episodes:
-                                              data[index].watched_episodes + 1,
-                                          total_episodes:
-                                              data[index].total_episodes));
-                                      refreshList();
-                                      upload();
-                                    }
-                                  },
+                    footer: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                            colors: [Colors.purple, Colors.blue[500]],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          )),
+                          child: ListTile(
+                              title: Text(
+                                data[index].name,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              trailing: ClipOval(
+                                child: Material(
+                                  child: InkWell(
+                                    child: Icon(Icons.add_circle),
+                                    splashColor: Colors.greenAccent,
+                                    onTap: () {
+                                      if (data[index].total_episodes !=
+                                          data[index].watched_episodes) {
+                                        updateWatching(Watching(
+                                            id: data[index].id,
+                                            name: data[index].name,
+                                            img: data[index].img,
+                                            watched_episodes:
+                                                data[index].watched_episodes +
+                                                    1,
+                                            total_episodes:
+                                                data[index].total_episodes));
+                                        refreshList();
+                                        upload();
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
-                            ),
-                            subtitle: Text(
-                                data[index].watched_episodes.toString() +
-                                    "/" +
-                                    data[index].total_episodes.toString()),
-                            isThreeLine: false,
-                            onLongPress: () {
-                              showDialog(
-                                  context: context,
-                                  barrierDismissible: true,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      backgroundColor: backgroundColor,
-                                      actions: <Widget>[
-                                        FlatButton(
-                                            onPressed: () async {
-                                              await insertCompleted(Completed(
-                                                  id: data[index].id,
-                                                  url: data[index].url,
-                                                  name: data[index].name,
-                                                  img: data[index].img,
-                                                  total_episodes: data[index]
-                                                      .total_episodes));
-                                              await deleteWatching(
-                                                  data[index].id);
-                                              Navigator.of(context).pop();
-                                              refreshList();
-                                              upload();
-                                            },
-                                            child: Text("Add to Completed")),
-                                        FlatButton(
-                                            onPressed: () async {
-                                              await insertDropped(Dropped(
-                                                  id: data[index].id,
-                                                  url: data[index].url,
-                                                  name: data[index].name,
-                                                  img: data[index].img,
-                                                  total_episodes: data[index]
-                                                      .total_episodes,
-                                                  watched_episodes: data[index]
-                                                      .watched_episodes));
-                                              await deleteWatching(
-                                                  data[index].id);
-                                              Navigator.of(context).pop();
-                                              refreshList();
-                                              upload();
-                                            },
-                                            child: Text("Add to Dropped")),
-                                        FlatButton(
-                                            onPressed: () async {
-                                              await deleteWatching(
-                                                  data[index].id);
-                                              Navigator.of(context).pop();
-                                              refreshList();
-                                              upload();
-                                            },
-                                            child: Text("Delete"))
-                                      ],
-                                    );
-                                  });
-                            })),
-                    child: Image.network(
-                      data[index].img,
-                      fit: BoxFit.cover,
+                              subtitle: Text(
+                                  data[index].watched_episodes.toString() +
+                                      "/" +
+                                      data[index].total_episodes.toString()),
+                              isThreeLine: false,
+                              onLongPress: () {
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        backgroundColor: backgroundColor,
+                                        actions: <Widget>[
+                                          FlatButton(
+                                              onPressed: () async {
+                                                await insertCompleted(Completed(
+                                                    id: data[index].id,
+                                                    url: data[index].url,
+                                                    name: data[index].name,
+                                                    img: data[index].img,
+                                                    total_episodes: data[index]
+                                                        .total_episodes));
+                                                await deleteWatching(
+                                                    data[index].id);
+                                                Navigator.of(context).pop();
+                                                refreshList();
+                                                upload();
+                                              },
+                                              child: Text("Add to Completed")),
+                                          FlatButton(
+                                              onPressed: () async {
+                                                await insertDropped(Dropped(
+                                                    id: data[index].id,
+                                                    url: data[index].url,
+                                                    name: data[index].name,
+                                                    img: data[index].img,
+                                                    total_episodes: data[index]
+                                                        .total_episodes,
+                                                    watched_episodes:
+                                                        data[index]
+                                                            .watched_episodes));
+                                                await deleteWatching(
+                                                    data[index].id);
+                                                Navigator.of(context).pop();
+                                                refreshList();
+                                                upload();
+                                              },
+                                              child: Text("Add to Dropped")),
+                                          FlatButton(
+                                              onPressed: () async {
+                                                await deleteWatching(
+                                                    data[index].id);
+                                                Navigator.of(context).pop();
+                                                refreshList();
+                                                upload();
+                                              },
+                                              child: Text("Delete"))
+                                        ],
+                                      );
+                                    });
+                              })),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.network(
+                        data[index].img,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 )),
