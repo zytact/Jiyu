@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'database/completed.dart';
-import 'database/dropped.dart';
-import 'database/plantowatch.dart';
-import 'database/watching.dart';
+import 'package:jiyu/backup/upload.dart';
+import 'package:jiyu/sqlite-database/completed.dart';
+import 'package:jiyu/sqlite-database/dropped.dart';
+import 'package:jiyu/sqlite-database/plantowatch.dart';
+import 'package:jiyu/sqlite-database/watching.dart';
 import 'package:http/http.dart' as http;
 
 class AddPage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _AddPageState extends State<AddPage> {
   final watched_episodes = TextEditingController();
   bool _watchedEpisodeInput = true;
   final _formKey = GlobalKey<FormState>();
-  final backgroundColor = Color(0xFF33325F);
+  final backgroundColor = Color(0xFF2d3447);
 
   Future<String> add() async {
     if (animeName.text == "") {
@@ -28,7 +29,7 @@ class _AddPageState extends State<AddPage> {
           barrierDismissible: true,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: backgroundColor,
+              backgroundColor: this.backgroundColor,
               title: Text("Error"),
               content: Text("Please fill in the required fields"),
               actions: <Widget>[
@@ -47,7 +48,7 @@ class _AddPageState extends State<AddPage> {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: backgroundColor,
+              backgroundColor: this.backgroundColor,
               title: Text("Adding"),
               content: LinearProgressIndicator(),
             );
@@ -139,6 +140,7 @@ class _AddPageState extends State<AddPage> {
       });
       Navigator.of(context).pop();
     }
+    upload();
 
     return "Success";
   }
@@ -197,12 +199,14 @@ class _AddPageState extends State<AddPage> {
               }
             },
           ),
-          Padding(
+          Container(
+            height: 60.0,
             padding: const EdgeInsets.all(10.0),
-            child: FloatingActionButton.extended(
+            child: RaisedButton.icon(
+              icon: Icon(Icons.check),
               elevation: 8.0,
               onPressed: add,
-              backgroundColor: Colors.purple,
+              // backgroundColor: Colors.blueAccent,
               label: Text(
                 "Add",
                 style: TextStyle(
