@@ -29,7 +29,7 @@ class _AddPageState extends State<AddPage> {
           barrierDismissible: true,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: backgroundColor,
+              backgroundColor: Colors.grey[900],
               title: Text("Error"),
               content: Text("Please fill in the required fields"),
               actions: <Widget>[
@@ -48,7 +48,7 @@ class _AddPageState extends State<AddPage> {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: backgroundColor,
+              backgroundColor: Colors.grey[900],
               title: Text("Adding"),
               content: LinearProgressIndicator(),
             );
