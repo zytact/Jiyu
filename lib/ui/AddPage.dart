@@ -20,7 +20,7 @@ class _AddPageState extends State<AddPage> {
   final watched_episodes = TextEditingController();
   bool _watchedEpisodeInput = true;
   final _formKey = GlobalKey<FormState>();
-  final backgroundColor = Color(0xFF33325F);
+  final backgroundColor = Color(0xFF2d3447);
 
   Future<String> add() async {
     if (animeName.text == "") {
@@ -29,7 +29,7 @@ class _AddPageState extends State<AddPage> {
           barrierDismissible: true,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: Colors.grey[900],
+              backgroundColor: this.backgroundColor,
               title: Text("Error"),
               content: Text("Please fill in the required fields"),
               actions: <Widget>[
@@ -48,7 +48,7 @@ class _AddPageState extends State<AddPage> {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: Colors.grey[900],
+              backgroundColor: this.backgroundColor,
               title: Text("Adding"),
               content: LinearProgressIndicator(),
             );

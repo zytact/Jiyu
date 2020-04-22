@@ -17,6 +17,7 @@ class _CompletedPageState extends State<CompletedPage> {
     refreshList();
   }
 
+  final backgroundColor = Color(0xFF2d3447);
   var anime = getCompleted();
 
   Widget gridView(List<Completed> data) {
@@ -60,7 +61,7 @@ class _CompletedPageState extends State<CompletedPage> {
                                   barrierDismissible: true,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      backgroundColor: Colors.grey[900],
+                                      backgroundColor: this.backgroundColor,
                                       actions: <Widget>[
                                         FlatButton(
                                             onPressed: () async {
@@ -107,10 +108,15 @@ class _CompletedPageState extends State<CompletedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: this.backgroundColor,
       drawer: AppDrawer(true, false, true, true),
       appBar: AppBar(
-        title: Text("Completed"),
+        backgroundColor: this.backgroundColor,
+        elevation: 0.0,
+        title: Text(
+          "Completed",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: RefreshIndicator(
         key: _refreshKey,
@@ -142,7 +148,7 @@ class _CompletedPageState extends State<CompletedPage> {
               barrierDismissible: true,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  backgroundColor: Colors.grey[900],
+                  backgroundColor: this.backgroundColor,
                   title: Text("Add"),
                   content: AddPage(),
                 );

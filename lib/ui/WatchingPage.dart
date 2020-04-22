@@ -20,6 +20,7 @@ class _WatchingPageState extends State<WatchingPage> {
     refreshList();
   }
 
+  final backgroundColor = Color(0xFF2d3447);
   var anime = getWatching();
 
   Widget gridView(List<Watching> data) {
@@ -89,7 +90,7 @@ class _WatchingPageState extends State<WatchingPage> {
                                     barrierDismissible: true,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        backgroundColor: Colors.grey[900],
+                                        backgroundColor: this.backgroundColor,
                                         actions: <Widget>[
                                           FlatButton(
                                               onPressed: () async {
@@ -172,9 +173,14 @@ class _WatchingPageState extends State<WatchingPage> {
     return Scaffold(
       drawer: AppDrawer(false, true, true, true),
       appBar: AppBar(
-        title: Text("Watching"),
+        elevation: 0.0,
+        backgroundColor: this.backgroundColor,
+        title: Text(
+          "Watching",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
-      backgroundColor: Colors.grey[900],
+      backgroundColor: this.backgroundColor,
       body: RefreshIndicator(
         key: _refreshKey,
         onRefresh: refreshList,
@@ -205,7 +211,7 @@ class _WatchingPageState extends State<WatchingPage> {
               builder: (BuildContext context) {
                 return AlertDialog(
                   title: Text("Add"),
-                  backgroundColor: Colors.grey[900],
+                  backgroundColor: this.backgroundColor,
                   content: AddPage(),
                 );
               });

@@ -6,7 +6,8 @@ This app uses the Jikan API (unofficial Myanimelist API) to fetch images.
 # Screenshots
 
 <img src = "assets/home.png" alt = "Home" height = "500">
-<img src = "assets/app-drawer.png" alt = "App Drawer" height = "500">
+<img src = "assets/appdrawer.png" alt = "App Drawer" height = "500">
+<img src = "assets/loginscreen.png" alt = "Login Screen" height = "500">
 
 # Use
 

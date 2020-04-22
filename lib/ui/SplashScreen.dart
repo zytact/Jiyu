@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
-  final backgroundColor = Color(0xFF33325F);
+  final backgroundColor = Color(0xFF2d3447);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

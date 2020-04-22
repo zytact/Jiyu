@@ -18,6 +18,7 @@ class _DroppedPageState extends State<DroppedPage> {
     refreshList();
   }
 
+  final backgroundColor = Color(0xFF2d3447);
   var anime = getDropped();
 
   Widget gridView(List<Dropped> data) {
@@ -63,7 +64,7 @@ class _DroppedPageState extends State<DroppedPage> {
                                   barrierDismissible: false,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      backgroundColor: Colors.grey[900],
+                                      backgroundColor: this.backgroundColor,
                                       actions: <Widget>[
                                         FlatButton(
                                             onPressed: () async {
@@ -128,10 +129,15 @@ class _DroppedPageState extends State<DroppedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: this.backgroundColor,
       drawer: AppDrawer(true, true, false, true),
       appBar: AppBar(
-        title: Text("Dropped"),
+        elevation: 0.0,
+        backgroundColor: this.backgroundColor,
+        title: Text(
+          "Dropped",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: RefreshIndicator(
         key: _refreshKey,
@@ -163,7 +169,7 @@ class _DroppedPageState extends State<DroppedPage> {
               barrierDismissible: true,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  backgroundColor: Colors.grey[900],
+                  backgroundColor: this.backgroundColor,
                   title: Text("Add"),
                   content: AddPage(),
                 );

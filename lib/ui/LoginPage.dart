@@ -7,11 +7,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final backgroundColor = Color(0xFF33325F);
+  final backgroundColor = Color(0xFF2d3447);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: this.backgroundColor,
+      backgroundColor: this.backgroundColor,
       body: SafeArea(
           child: Center(
         child: Column(

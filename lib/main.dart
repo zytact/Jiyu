@@ -7,7 +7,7 @@ import 'package:jiyu/ui/WatchingPage.dart';
 void main() => runApp(Jiyu());
 
 class Jiyu extends StatelessWidget {
-  final backgroundColor = Color(0xFF33325F);
+  final backgroundColor = Color(0xFF2d3447);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,9 +15,9 @@ class Jiyu extends StatelessWidget {
       title: "Jiyu",
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        backgroundColor: Colors.grey[900],
+        backgroundColor: this.backgroundColor,
         brightness: Brightness.dark,
-        canvasColor: Colors.grey[900],
+        canvasColor: this.backgroundColor,
         textSelectionColor: Colors.blueAccent,
         cursorColor: Colors.blueAccent,
       ),

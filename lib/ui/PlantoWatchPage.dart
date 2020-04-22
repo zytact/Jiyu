@@ -18,6 +18,7 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
     refreshList();
   }
 
+  final backgroundColor = Color(0xFF2d3447);
   var anime = getPlanned();
 
   Widget gridView(List<Planned> data) {
@@ -61,7 +62,7 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
                                   barrierDismissible: false,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      backgroundColor: Colors.grey[900],
+                                      backgroundColor: this.backgroundColor,
                                       actions: <Widget>[
                                         FlatButton(
                                             onPressed: () async {
@@ -125,10 +126,15 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: this.backgroundColor,
       drawer: AppDrawer(true, true, true, false),
       appBar: AppBar(
-        title: Text("Plan to Watch"),
+        elevation: 0.0,
+        backgroundColor: this.backgroundColor,
+        title: Text(
+          "Plan to Watch",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: RefreshIndicator(
         key: _refreshKey,
@@ -160,7 +166,7 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
               barrierDismissible: true,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  backgroundColor: Colors.grey[900],
+                  backgroundColor: this.backgroundColor,
                   title: Text("Add"),
                   content: AddPage(),
                 );
