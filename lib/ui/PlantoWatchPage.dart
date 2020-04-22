@@ -35,7 +35,12 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
                     child: InkWell(
                   child: GridTile(
                     footer: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.zero,
+                        topRight: Radius.zero,
+                        bottomLeft: Radius.circular(10.0),
+                        bottomRight: Radius.circular(10.0),
+                      ),
                       child: Container(
                           decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -92,7 +97,7 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
                           )),
                     ),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(10.0),
                       child: Image.network(
                         data[index].img,
                         fit: BoxFit.cover,
