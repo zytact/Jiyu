@@ -46,7 +46,7 @@ class _WatchingPageState extends State<WatchingPage> {
                       child: Container(
                           decoration: BoxDecoration(
                               gradient: LinearGradient(
-                            colors: [Colors.purple, Colors.blue[500]],
+                            colors: [Colors.blue[800], Colors.blue[500]],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           )),
@@ -90,7 +90,7 @@ class _WatchingPageState extends State<WatchingPage> {
                                     barrierDismissible: true,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        backgroundColor: backgroundColor,
+                                        backgroundColor: Colors.grey[900],
                                         actions: <Widget>[
                                           FlatButton(
                                               onPressed: () async {
@@ -171,12 +171,13 @@ class _WatchingPageState extends State<WatchingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      // backgroundColor: backgroundColor,
       drawer: AppDrawer(false, true, true, true),
       appBar: AppBar(
         title: Text("Watching"),
-        backgroundColor: backgroundColor,
+        // backgroundColor: Colors.black54,
       ),
+      backgroundColor: Colors.grey[900],
       body: RefreshIndicator(
         key: _refreshKey,
         onRefresh: refreshList,
@@ -198,6 +199,7 @@ class _WatchingPageState extends State<WatchingPage> {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -206,12 +208,12 @@ class _WatchingPageState extends State<WatchingPage> {
               builder: (BuildContext context) {
                 return AlertDialog(
                   title: Text("Add"),
-                  backgroundColor: backgroundColor,
+                  backgroundColor: Colors.grey[900],
                   content: AddPage(),
                 );
               });
         },
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.blueAccent,
         elevation: 8.0,
         child: Icon(
           Icons.add,

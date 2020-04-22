@@ -199,12 +199,14 @@ class _AddPageState extends State<AddPage> {
               }
             },
           ),
-          Padding(
+          Container(
+            height: 60.0,
             padding: const EdgeInsets.all(10.0),
-            child: FloatingActionButton.extended(
+            child: RaisedButton.icon(
+              icon: Icon(Icons.check),
               elevation: 8.0,
               onPressed: add,
-              backgroundColor: Colors.purple,
+              // backgroundColor: Colors.blueAccent,
               label: Text(
                 "Add",
                 style: TextStyle(

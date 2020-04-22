@@ -44,7 +44,7 @@ class _DroppedPageState extends State<DroppedPage> {
                       child: Container(
                           decoration: BoxDecoration(
                               gradient: LinearGradient(
-                            colors: [Colors.purple, Colors.blue[500]],
+                            colors: [Colors.blue[800], Colors.blue[500]],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           )),
@@ -64,7 +64,7 @@ class _DroppedPageState extends State<DroppedPage> {
                                   barrierDismissible: false,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      backgroundColor: backgroundColor,
+                                      backgroundColor: Colors.grey[900],
                                       actions: <Widget>[
                                         FlatButton(
                                             onPressed: () async {
@@ -129,10 +129,10 @@ class _DroppedPageState extends State<DroppedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.grey[900],
       drawer: AppDrawer(true, true, false, true),
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        // backgroundColor: backgroundColor,
         title: Text("Dropped"),
       ),
       body: RefreshIndicator(
@@ -156,15 +156,16 @@ class _DroppedPageState extends State<DroppedPage> {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.blueAccent,
         onPressed: () {
           showDialog(
               context: context,
               barrierDismissible: true,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  backgroundColor: backgroundColor,
+                  backgroundColor: Colors.grey[900],
                   title: Text("Add"),
                   content: AddPage(),
                 );

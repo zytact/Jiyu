@@ -11,7 +11,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: this.backgroundColor,
+      // backgroundColor: this.backgroundColor,
       body: SafeArea(
           child: Center(
         child: Column(
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)),
               elevation: 8.0,
-              color: Colors.purple,
+              color: Colors.blueAccent,
               child: InkWell(
                 splashColor: Colors.greenAccent,
                 child: Text("SIGN IN WITH GOOGLE"),

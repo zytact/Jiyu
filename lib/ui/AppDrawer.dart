@@ -55,7 +55,7 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           Container(
-            color: this._routeToWatching == false ? Colors.purple[900] : null,
+            color: this._routeToWatching == false ? Colors.black38 : null,
             child: ListTile(
               leading: Icon(Icons.arrow_upward),
               title: Text("Watching"),
@@ -71,7 +71,7 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           Container(
-            color: this._routeToCompleted == false ? Colors.purple[900] : null,
+            color: this._routeToCompleted == false ? Colors.black12 : null,
             child: ListTile(
                 leading: Icon(Icons.check),
                 title: Text("Completed"),
@@ -87,7 +87,7 @@ class AppDrawer extends StatelessWidget {
                 }),
           ),
           Container(
-            color: this._routeToDropped == false ? Colors.purple[900] : null,
+            color: this._routeToDropped == false ? Colors.black12 : null,
             child: ListTile(
                 leading: Icon(Icons.delete),
                 title: Text("Dropped"),
@@ -102,7 +102,7 @@ class AppDrawer extends StatelessWidget {
                 }),
           ),
           Container(
-            color: this._routeToPlanned == false ? Colors.purple[900] : null,
+            color: this._routeToPlanned == false ? Colors.black12 : null,
             child: ListTile(
                 leading: Icon(Icons.note),
                 title: Text("Plan to Watch"),
@@ -123,7 +123,7 @@ class AppDrawer extends StatelessWidget {
             ),
             elevation: 8.0,
             padding: EdgeInsets.all(0.0),
-            color: Colors.purple,
+            color: Colors.blueAccent,
             onPressed: () {
               download();
             },
@@ -143,7 +143,7 @@ class AppDrawer extends StatelessWidget {
               borderRadius: BorderRadius.circular(30.0),
             ),
             elevation: 8.0,
-            color: Colors.purple,
+            color: Colors.blueAccent,
             padding: EdgeInsets.all(0.0),
             child: InkWell(
               child: Container(

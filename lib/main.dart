@@ -14,12 +14,12 @@ class Jiyu extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Jiyu",
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        backgroundColor: backgroundColor,
+        primarySwatch: Colors.blue,
+        // backgroundColor: Colors.black,
         brightness: Brightness.dark,
-        canvasColor: backgroundColor,
-        textSelectionColor: Colors.purpleAccent,
-        cursorColor: Colors.purpleAccent,
+        // canvasColor: backgroundColor,
+        textSelectionColor: Colors.blueAccent,
+        cursorColor: Colors.blueAccent,
       ),
       home: MainScreen(),
     );
