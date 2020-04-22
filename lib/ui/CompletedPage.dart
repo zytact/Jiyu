@@ -17,7 +17,6 @@ class _CompletedPageState extends State<CompletedPage> {
     refreshList();
   }
 
-  final backgroundColor = Color(0xFF33325F);
   var anime = getCompleted();
 
   Widget gridView(List<Completed> data) {
@@ -111,7 +110,6 @@ class _CompletedPageState extends State<CompletedPage> {
       backgroundColor: Colors.grey[900],
       drawer: AppDrawer(true, false, true, true),
       appBar: AppBar(
-        // backgroundColor: backgroundColor,
         title: Text("Completed"),
       ),
       body: RefreshIndicator(

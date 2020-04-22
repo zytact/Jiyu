@@ -18,7 +18,6 @@ class _DroppedPageState extends State<DroppedPage> {
     refreshList();
   }
 
-  final backgroundColor = Color(0xFF33325F);
   var anime = getDropped();
 
   Widget gridView(List<Dropped> data) {
@@ -132,7 +131,6 @@ class _DroppedPageState extends State<DroppedPage> {
       backgroundColor: Colors.grey[900],
       drawer: AppDrawer(true, true, false, true),
       appBar: AppBar(
-        // backgroundColor: backgroundColor,
         title: Text("Dropped"),
       ),
       body: RefreshIndicator(

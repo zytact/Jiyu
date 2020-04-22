@@ -15,9 +15,9 @@ class Jiyu extends StatelessWidget {
       title: "Jiyu",
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        // backgroundColor: Colors.black,
+        backgroundColor: Colors.grey[900],
         brightness: Brightness.dark,
-        // canvasColor: backgroundColor,
+        canvasColor: Colors.grey[900],
         textSelectionColor: Colors.blueAccent,
         cursorColor: Colors.blueAccent,
       ),

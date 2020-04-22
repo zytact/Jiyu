@@ -20,7 +20,6 @@ class _WatchingPageState extends State<WatchingPage> {
     refreshList();
   }
 
-  final backgroundColor = Color(0xFF33325F);
   var anime = getWatching();
 
   Widget gridView(List<Watching> data) {
@@ -171,11 +170,9 @@ class _WatchingPageState extends State<WatchingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: backgroundColor,
       drawer: AppDrawer(false, true, true, true),
       appBar: AppBar(
         title: Text("Watching"),
-        // backgroundColor: Colors.black54,
       ),
       backgroundColor: Colors.grey[900],
       body: RefreshIndicator(

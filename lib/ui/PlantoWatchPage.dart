@@ -18,7 +18,6 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
     refreshList();
   }
 
-  final backgroundColor = Color(0xFF33325F);
   var anime = getPlanned();
 
   Widget gridView(List<Planned> data) {
@@ -129,7 +128,6 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
       backgroundColor: Colors.grey[900],
       drawer: AppDrawer(true, true, true, false),
       appBar: AppBar(
-        // backgroundColor: backgroundColor,
         title: Text("Plan to Watch"),
       ),
       body: RefreshIndicator(
