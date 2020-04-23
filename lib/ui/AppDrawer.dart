@@ -1,6 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:jiyu/auth/login.dart';
 import 'package:jiyu/backup/download.dart';
+import 'package:jiyu/sqlite-database/completed.dart';
+import 'package:jiyu/sqlite-database/dropped.dart';
+import 'package:jiyu/sqlite-database/watching.dart';
 import 'package:jiyu/ui/CompletedPage.dart';
 import 'package:jiyu/ui/DroppedPage.dart';
 import 'package:jiyu/ui/PlantoWatchPage.dart';
@@ -14,48 +19,74 @@ class AppDrawer extends StatelessWidget {
   AppDrawer(this._routeToWatching, this._routeToCompleted, this._routeToDropped,
       this._routeToPlanned);
 
+  Future<String> totalWatchTime() async {
+    String _totalWatchTimeHour;
+    int _totalWatchTimeMin = 0;
+    List<Watching> watching = await getWatching();
+    for (Watching item in watching) {
+      _totalWatchTimeMin += item.watched_episodes;
+    }
+
+    List<Completed> completed = await getCompleted();
+    for (Completed item in completed) {
+      _totalWatchTimeMin += item.total_episodes;
+    }
+
+    List<Dropped> dropped = await getDropped();
+    for (Dropped item in dropped) {
+      _totalWatchTimeMin += item.watched_episodes;
+    }
+    _totalWatchTimeHour = ((_totalWatchTimeMin / 60) / 24).toStringAsFixed(2);
+
+    return _totalWatchTimeHour;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(15.0),
+          Container(
+            color: Colors.grey[900],
             child: Column(
               children: <Widget>[
-                Image.asset(
-                  "assets/icon.png",
-                  width: 150.0,
+                FutureBuilder(
+                    future: AuthProvider().getCurrentUser(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return UserAccountsDrawerHeader(
+                          accountName: Text(snapshot.data.displayName),
+                          accountEmail: Text(snapshot.data.email),
+                          currentAccountPicture: CircleAvatar(
+                            child: Image.network(snapshot.data.photoUrl),
+                          ),
+                        );
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      }
+                    }),
+                FutureBuilder(
+                  future: totalWatchTime(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return ListTile(
+                        title: Text(
+                          "Watch time: ${snapshot.data} days",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      );
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    }
+                  },
                 ),
-                Text(
-                  "Jiyu",
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  "Made by Arnab",
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontStyle: FontStyle.italic,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SelectableText(
-                  "(https://github.com/Arnab771)",
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontStyle: FontStyle.italic,
-                  ),
-                  textAlign: TextAlign.center,
-                )
               ],
             ),
           ),
           Container(
-            color: this._routeToWatching == false ? Colors.black38 : null,
+            color: this._routeToWatching == false ? Colors.black12 : null,
             child: ListTile(
               leading: Icon(Icons.arrow_upward),
               title: Text("Watching"),
