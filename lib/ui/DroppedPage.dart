@@ -53,8 +53,10 @@ class _DroppedPageState extends State<DroppedPage> {
                               data[index].name,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            subtitle: Text(
-                                data[index].watched_episodes.toString() +
+                            subtitle: (data[index].total_episodes == 0)
+                                ? Text(data[index].watched_episodes.toString() +
+                                    "/?")
+                                : Text(data[index].watched_episodes.toString() +
                                     "/" +
                                     data[index].total_episodes.toString()),
                             isThreeLine: false,

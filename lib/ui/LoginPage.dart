@@ -28,6 +28,25 @@ class _LoginPageState extends State<LoginPage> {
               ),
               textAlign: TextAlign.center,
             ),
+            Text(
+              "Made by Arnab",
+              style: TextStyle(
+                fontSize: 15.0,
+                fontStyle: FontStyle.italic,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: SelectableText(
+                "(https://github.com/Arnab771)",
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontStyle: FontStyle.italic,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
             MaterialButton(
               onPressed: () async {
                 bool res = await AuthProvider().signInWithGoogle();

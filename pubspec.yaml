@@ -1,7 +1,7 @@
 name: jiyu
 description: An anime tracker for anime fans to manage the anime they watch.
 
-version: 1.4.2+12
+version: 1.4.3+1
 environment:
   sdk: ">=2.1.0 <3.0.0"
 

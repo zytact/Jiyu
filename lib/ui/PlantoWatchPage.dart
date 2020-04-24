@@ -53,8 +53,9 @@ class _PlantoWatchPageState extends State<PlantoWatchPage> {
                               data[index].name,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            subtitle:
-                                Text(data[index].total_episodes.toString()),
+                            subtitle: (data[index].total_episodes == 0)
+                                ? Text("?")
+                                : Text(data[index].total_episodes.toString()),
                             isThreeLine: false,
                             onLongPress: () {
                               showDialog(

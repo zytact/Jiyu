@@ -37,4 +37,8 @@ class AuthProvider {
     final uid = user.uid;
     return uid;
   }
+
+  Future getCurrentUser() async {
+    return await _auth.currentUser();
+  }
 }

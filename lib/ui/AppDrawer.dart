@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jiyu/auth/login.dart';
 import 'package:jiyu/backup/download.dart';
+import 'package:jiyu/sqlite-database/completed.dart';
+import 'package:jiyu/sqlite-database/dropped.dart';
+import 'package:jiyu/sqlite-database/watching.dart';
 import 'package:jiyu/ui/CompletedPage.dart';
 import 'package:jiyu/ui/DroppedPage.dart';
 import 'package:jiyu/ui/PlantoWatchPage.dart';
@@ -14,48 +17,77 @@ class AppDrawer extends StatelessWidget {
   AppDrawer(this._routeToWatching, this._routeToCompleted, this._routeToDropped,
       this._routeToPlanned);
 
+  Future<String> totalWatchTime() async {
+    String _totalWatchTimeHour;
+    int _totalWatchTimeMin = 0;
+    List<Watching> watching = await getWatching();
+    for (Watching item in watching) {
+      _totalWatchTimeMin += item.watched_episodes * 24;
+    }
+
+    List<Completed> completed = await getCompleted();
+    for (Completed item in completed) {
+      _totalWatchTimeMin += item.total_episodes * 24;
+    }
+
+    List<Dropped> dropped = await getDropped();
+    for (Dropped item in dropped) {
+      _totalWatchTimeMin += item.watched_episodes * 24;
+    }
+    _totalWatchTimeHour = ((_totalWatchTimeMin / 60) / 24).toStringAsFixed(2);
+
+    return _totalWatchTimeHour;
+  }
+
+  Widget watchTimeDisplay() {
+    return FutureBuilder(
+      future: totalWatchTime(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Text(
+            "Watch time: ${snapshot.data} days",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          );
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              children: <Widget>[
-                Image.asset(
-                  "assets/icon.png",
-                  width: 150.0,
-                ),
-                Text(
-                  "Jiyu",
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  "Made by Arnab",
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontStyle: FontStyle.italic,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SelectableText(
-                  "(https://github.com/Arnab771)",
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontStyle: FontStyle.italic,
-                  ),
-                  textAlign: TextAlign.center,
-                )
-              ],
-            ),
+          Column(
+            children: <Widget>[
+              FutureBuilder(
+                  future: AuthProvider().getCurrentUser(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return UserAccountsDrawerHeader(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(14.0),
+                              bottomRight: Radius.circular(14.0),
+                            ),
+                            gradient: LinearGradient(
+                                colors: [Colors.blueAccent, Colors.blue[700]])),
+                        accountName: Text(snapshot.data.displayName),
+                        accountEmail: watchTimeDisplay(),
+                        currentAccountPicture: ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Image.network(snapshot.data.photoUrl),
+                        ),
+                      );
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    }
+                  }),
+            ],
           ),
           Container(
-            color: this._routeToWatching == false ? Colors.black38 : null,
+            color: this._routeToWatching == false ? Colors.black12 : null,
             child: ListTile(
               leading: Icon(Icons.arrow_upward),
               title: Text("Watching"),
