@@ -39,49 +39,52 @@ class AppDrawer extends StatelessWidget {
     return _totalWatchTimeHour;
   }
 
+  Widget watchTimeDisplay() {
+    return FutureBuilder(
+      future: totalWatchTime(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Text(
+            "Watch time: ${snapshot.data} days",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          );
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          Container(
-            color: Colors.grey[900],
-            child: Column(
-              children: <Widget>[
-                FutureBuilder(
-                    future: AuthProvider().getCurrentUser(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return UserAccountsDrawerHeader(
-                          accountName: Text(snapshot.data.displayName),
-                          accountEmail: Text(snapshot.data.email),
-                          currentAccountPicture: CircleAvatar(
-                            child: Image.network(snapshot.data.photoUrl),
-                          ),
-                        );
-                      }
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      }
-                    }),
-                FutureBuilder(
-                  future: totalWatchTime(),
+          Column(
+            children: <Widget>[
+              FutureBuilder(
+                  future: AuthProvider().getCurrentUser(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                      return ListTile(
-                        title: Text(
-                          "Watch time: ${snapshot.data} days",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                      return UserAccountsDrawerHeader(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(14.0),
+                              bottomRight: Radius.circular(14.0),
+                            ),
+                            gradient: LinearGradient(
+                                colors: [Colors.blueAccent, Colors.blue[700]])),
+                        accountName: Text(snapshot.data.displayName),
+                        accountEmail: watchTimeDisplay(),
+                        currentAccountPicture: ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Image.network(snapshot.data.photoUrl),
                         ),
                       );
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return CircularProgressIndicator();
                     }
-                  },
-                ),
-              ],
-            ),
+                  }),
+            ],
           ),
           Container(
             color: this._routeToWatching == false ? Colors.black12 : null,
