@@ -22,17 +22,17 @@ class AppDrawer extends StatelessWidget {
     int _totalWatchTimeMin = 0;
     List<Watching> watching = await getWatching();
     for (Watching item in watching) {
-      _totalWatchTimeMin += item.watched_episodes;
+      _totalWatchTimeMin += item.watched_episodes * 24;
     }
 
     List<Completed> completed = await getCompleted();
     for (Completed item in completed) {
-      _totalWatchTimeMin += item.total_episodes;
+      _totalWatchTimeMin += item.total_episodes * 24;
     }
 
     List<Dropped> dropped = await getDropped();
     for (Dropped item in dropped) {
-      _totalWatchTimeMin += item.watched_episodes;
+      _totalWatchTimeMin += item.watched_episodes * 24;
     }
     _totalWatchTimeHour = ((_totalWatchTimeMin / 60) / 24).toStringAsFixed(2);
 
